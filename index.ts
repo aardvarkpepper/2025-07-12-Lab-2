@@ -27,6 +27,7 @@ const handlePseudoAPICallsAndDisplayData = (): void => {
       console.log('=====');
     })
 
+
   fetchSalesReport()
     .then((salesReport: { totalSales: number, unitsSold: number, averagePrice: number }) => {
       console.log(`Sales Report: ${JSON.stringify(salesReport)}`);
@@ -36,18 +37,13 @@ const handlePseudoAPICallsAndDisplayData = (): void => {
       console.error(error.message);
       console.log('=====');
     })
+    .finally(() => {
+      console.log('All API calls have been attempted.');
+    })
 }
-
 handlePseudoAPICallsAndDisplayData();
 
 /** 
-
-Part 3: Build the Main Application Logic
-Create an index.ts file to contain the main logic of your application.
-
-Write a Function to Handle API Calls and Display Data:
-
-Implement Error Handling Using Promises:
 
 Part 5: Optional Challenge
 Create a Retry Mechanism:
