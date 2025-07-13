@@ -16,6 +16,8 @@ There's exceptions though; bad request or not found are issues that can't be fix
 
 ## Screenshots
 
+Long story short, everything works, including optional challenge.  I tweaked code to demonstrate some functionality, then changed back so errors wouldn't constantly trigger (for Data Error and retryPromise).
+
 Note:  We were instructed to write fetchProductCatalog() and fetchProductReviews(productId: number).  Rather than importing data separately, I used the return on fetchProductCatalog to invoke fetchProductReviews.  In first screenshot, product reviews display after sales report.
 
 ![Screenshot of all API calls successful:](./allSuccess.png);
@@ -48,6 +50,13 @@ Below screenshot of simulated data failure for product review request, using dat
 
 ![Screenshot of simulated data failure for product reviews](./pr1DataError.png);
 
+Below screenshot of tweak to random number generator to increase probability of simulated network errors.
+
+![Screenshot of tweak to increase probability of simulated network errors](./randomtweak.png);
+
+Below screenshot of retryPromise functioning.
+
+![Screenshot of retryPromise functionality](./randomTweak3.png);
 
 ## Comments
 
@@ -108,3 +117,4 @@ in console, after 'node: index.ts', read 'fPC trigger' (function successfully im
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/forEach
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled

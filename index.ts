@@ -1,7 +1,5 @@
 import { fetchProductCatalog, fetchProductReviews, fetchSalesReport } from "./apiSimulator.ts";
 
-// let productCatalogSuccess: null | { id: number; name: string; price: number }[] = null;
-
 const handlePseudoAPICallsAndDisplayData = (): void => {
   console.log('=====');
   fetchProductCatalog()
@@ -55,6 +53,26 @@ Use this function to retry API calls that fail initially.
 Implement retryPromise with API Calls to retry up to three times for each API call before giving up.
 */
 
-const retryPromise = (asyncFunction: Function, retryAttempts: number, millisecondsDelay: number) => {
+console.log('*****');
 
+const retryPromise = (asyncFunction: Function, retryAttempts: number, millisecondsDelay: number) => {
+  asyncFunction()
+    .then((productCatalog: { id: number; name: string; price: number }[]) => {
+      console.log(`RetryPromise Product Catalog: ${JSON.stringify(productCatalog)}`);
+      console.log('=====');
+    })
+    .catch((error: any) => {
+      console.error(`Retry Promise error: ${error.message}, retry attempts remaining: ${retryAttempts}`);
+      console.log('=====');
+      console.log(`Waiting ${millisecondsDelay} milliseconds before attempting again.`)
+      setTimeout(() => {return null;}, millisecondsDelay)
+      retryAttempts--;
+      if (retryAttempts === 0) {
+        console.log('No more attempts remaining');
+      } else {
+        retryPromise(asyncFunction, retryAttempts, millisecondsDelay);
+      }
+    })
 }
+
+retryPromise(fetchProductCatalog, 3, 1000);
