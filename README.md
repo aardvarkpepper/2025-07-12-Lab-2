@@ -1,3 +1,9 @@
+<p align="center">
+<img src="image.png" alt="Image of a pun on RESTful APIs" width="600"/>
+</p>
+
+[Meme from APISpreadsheets.com](https://www.apispreadsheets.com/tutorials/31-api-memes-for-developers.html)
+
 ## Critical Thinking Questions
 
 1.  Why is it important to handle errors for each individual API call rather than just at the end of the promise chain?
