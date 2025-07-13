@@ -1,28 +1,38 @@
 import { fetchProductCatalog, fetchProductReviews, fetchSalesReport } from "./apiSimulator.ts";
 
-let productCatalogSuccess: null | { id: number; name: string; price: number }[] = null;
+// let productCatalogSuccess: null | { id: number; name: string; price: number }[] = null;
 
 const handlePseudoAPICallsAndDisplayData = (): void => {
   fetchProductCatalog()
     .then((productCatalog: { id: number; name: string; price: number }[]) => {
       console.log(`Product Catalog: ${JSON.stringify(productCatalog)}`);
-      productCatalogSuccess = productCatalog;
+      // productCatalogSuccess = productCatalog;
+      // console.log(`main call; productCatalogSuccess set to ${JSON.stringify(productCatalog)} `);
+      for (let i = 0; i < productCatalog.length; i++) {
+        fetchProductReviews(productCatalog[i].id)
+          .then((productReviews: { userId: number, userReview: string, userRating: number }[]) => {
+            console.log(`Product Review: ${JSON.stringify(productReviews)}`);
+          })
+          .catch((error) => {
+            console.error(error.message);
+          })
+      } // for (let i = 0; i < productCatalog.length . . .
     })
     .catch((error) => {
       console.error(error.message);
     })
-
-  if (productCatalogSuccess) {
-    for (let i = 0; i < productCatalogSuccess.length; i++) {
-      fetchProductReviews(productCatalogSuccess[i].id)
-        .then((productReviews: { userId: number, userReview: string, userRating: number }[]) => {
-          console.log(`Product Review: ${JSON.stringify(productReviews)}`);
-        })
-        .catch((error) => {
-          console.error(error.message);
-        })
-    } // for (let i = 0; i < productCatalogSuccess . . .)
-  } // if (productCatalogSuccess)
+  // if (productCatalogSuccess) {
+  //   console.log(`main call; if statement trigger success`);
+  //   for (let i = 0; i < productCatalogSuccess.length; i++) {
+  //     fetchProductReviews(productCatalogSuccess[i].id)
+  //       .then((productReviews: { userId: number, userReview: string, userRating: number }[]) => {
+  //         console.log(`Product Review: ${JSON.stringify(productReviews)}`);
+  //       })
+  //       .catch((error) => {
+  //         console.error(error.message);
+  //       })
+  //   } // for (let i = 0; i < productCatalogSuccess . . .)
+  // } // if (productCatalogSuccess)
 
   fetchSalesReport()
     .then((salesReport: { totalSales: number, unitsSold: number, averagePrice: number }) => {
@@ -31,10 +41,10 @@ const handlePseudoAPICallsAndDisplayData = (): void => {
     .catch((error) => {
       console.error(error.message);
     })
-    // pop on a 'finally' indicating all API calls requested.  Later pop Promise.any on the multiples.
-
-
+  // pop on a 'finally' indicating all API calls requested.  Later pop Promise.any on the multiples.  Or Promise.allSettled()
 }
+
+handlePseudoAPICallsAndDisplayData();
 
 /** 
 
