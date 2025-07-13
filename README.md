@@ -14,7 +14,7 @@ Custom error classes can give specific details about what caused an error, makin
 
 3.  When might a retry mechanism be more effective than an immediate failure response?
 
-Where API calls are concerned, retry is often going to be better than immediate failure.  There's any number of reasons why an API request may not be immediately met; natural lag, extra lag from heavy system use.  No reason to shut things down because there's no immediate response.  (Often the API call may remain pending for a while, possibly 30 seconds to a minute or more, but eventually it typically will be rejected)
+Where API calls are concerned, retry is often going to be better than immediate failure.  There's any number of reasons why an API request may not be immediately met; natural lag, extra lag from heavy system use.  No reason to shut things down because there's no immediate response.  (Often the API call may remain pending for a while, possibly 30 seconds to a minute or more, but eventually it typically will be rejected.  Possibly a 503 or 504 error, say.)
 
 There's exceptions though; bad request or not found are issues that can't be fixed with retry, and servers may limit requests so simply retrying may actually be counterproductive, using up a limited stock of daily API requests (or similar).
 
