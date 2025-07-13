@@ -1,7 +1,7 @@
 export const productCatalog =
   [
     { id: 1, name: "Laptop", price: 1200 },
-    { id: 2, name: "Headphones", price: 200 },
+    { id: 2, name: "Headphones", price: 800 },
   ];
 
 export const productReviews = new Map([

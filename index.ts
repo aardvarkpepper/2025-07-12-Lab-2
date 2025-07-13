@@ -3,45 +3,39 @@ import { fetchProductCatalog, fetchProductReviews, fetchSalesReport } from "./ap
 // let productCatalogSuccess: null | { id: number; name: string; price: number }[] = null;
 
 const handlePseudoAPICallsAndDisplayData = (): void => {
+  console.log('=====');
   fetchProductCatalog()
     .then((productCatalog: { id: number; name: string; price: number }[]) => {
       console.log(`Product Catalog: ${JSON.stringify(productCatalog)}`);
+      console.log('=====');
       // productCatalogSuccess = productCatalog;
       // console.log(`main call; productCatalogSuccess set to ${JSON.stringify(productCatalog)} `);
       for (let i = 0; i < productCatalog.length; i++) {
         fetchProductReviews(productCatalog[i].id)
           .then((productReviews: { userId: number, userReview: string, userRating: number }[]) => {
             console.log(`Product Review: ${JSON.stringify(productReviews)}`);
+            console.log('-----');
           })
           .catch((error) => {
             console.error(error.message);
+            console.log('=====');
           })
       } // for (let i = 0; i < productCatalog.length . . .
     })
     .catch((error) => {
       console.error(error.message);
+      console.log('=====');
     })
-  // if (productCatalogSuccess) {
-  //   console.log(`main call; if statement trigger success`);
-  //   for (let i = 0; i < productCatalogSuccess.length; i++) {
-  //     fetchProductReviews(productCatalogSuccess[i].id)
-  //       .then((productReviews: { userId: number, userReview: string, userRating: number }[]) => {
-  //         console.log(`Product Review: ${JSON.stringify(productReviews)}`);
-  //       })
-  //       .catch((error) => {
-  //         console.error(error.message);
-  //       })
-  //   } // for (let i = 0; i < productCatalogSuccess . . .)
-  // } // if (productCatalogSuccess)
 
   fetchSalesReport()
     .then((salesReport: { totalSales: number, unitsSold: number, averagePrice: number }) => {
       console.log(`Sales Report: ${JSON.stringify(salesReport)}`);
+      console.log('======');
     })
     .catch((error) => {
       console.error(error.message);
+      console.log('=====');
     })
-  // pop on a 'finally' indicating all API calls requested.  Later pop Promise.any on the multiples.  Or Promise.allSettled()
 }
 
 handlePseudoAPICallsAndDisplayData();

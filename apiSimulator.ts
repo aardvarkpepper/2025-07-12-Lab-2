@@ -7,17 +7,18 @@ export const fetchProductCatalog = (): Promise<{ id: number; name: string; price
             if (Math.random() < 0.8) {
                 // console.log('fPC 1 success');
                 for (let i = 0; i < productCatalog.length; i++) {
-                    productCatalog.forEach((value, key) => {
+                    Object.values(productCatalog[i]).forEach((value) => {
+                        // console.log(`This value is tested ${value}`)
                         if (!value) {
-                            console.log('fPC 1 fail, DataError')
-                            reject(new DataError("One or more missing fields in API response for fetchProductCatalog."))
+                            // console.log('fPC 1 fail, DataError')
+                            reject(new DataError("Simulated Data Error.  One or more missing fields in API response for fetchProductCatalog.  *No product reviews will be fetched.*"))
                         }
                     });
                 }
                 resolve(productCatalog);
             } else {
                 // console.log('fPC 1 fail, NetworkError')
-                reject(new NetworkError("Failed to fetch product catalog"));
+                reject(new NetworkError("Simulated Network Error.  Failed to fetch product catalog.  *No product reviews will be fetched.*"));
             }
         }, 1000);
     });
@@ -32,10 +33,10 @@ export const fetchProductReviews = (productId: number): Promise<{ userId: number
             if (Math.random() < 0.8) {
                 const productReview = productReviews.get(productId);
                 for (let i = 0; i < (productReview as { userId: number, userReview: string, userRating: number }[]).length; i++) {
-                    Object.keys((productReview as { userId: number, userReview: string, userRating: number }[])[i]).forEach((value, key) => {
+                    Object.values((productReview as { userId: number, userReview: string, userRating: number }[])[i]).forEach((value) => {
                         if (!value) {
                             // console.log('fPR 2 fail, DataError')
-                            reject(new DataError("One or more missing fields in API response for fetchProductReviews."))
+                            reject(new DataError("Simulated Data Error.  One or more missing fields in API response for fetchProductReviews."))
                         }
                     });
                 }
@@ -44,7 +45,7 @@ export const fetchProductReviews = (productId: number): Promise<{ userId: number
                 resolve(productReviews.get(productId) as { userId: number, userReview: string, userRating: number }[]);
             } else {
                 // console.log('fPR 2 fail, NetworkError')
-                reject(new NetworkError(`Failed to fetch reviews for product ID ${productId}`));
+                reject(new NetworkError(`Simulated Network Error.  Failed to fetch reviews for product ID ${productId}`));
             }
         }, 1500);
     });
@@ -60,7 +61,7 @@ export const fetchSalesReport = (): Promise<{ totalSales: number, unitsSold: num
                     productCatalog.forEach((value, key) => {
                         if (!value) {
                             // console.log('fSR 3 fail, DataError');
-                            reject(new DataError("One or more missing fields in API response for fetchSalesReport."))
+                            reject(new DataError("Simulated Data Error.  One or more missing fields in API response for fetchSalesReport."))
                         }
                     });
                 }
@@ -70,7 +71,7 @@ export const fetchSalesReport = (): Promise<{ totalSales: number, unitsSold: num
                 );
             } else {
                 // console.log('fSR 3 fail, NetworkError');
-                reject(new NetworkError("Failed to fetch sales report"));
+                reject(new NetworkError("Simulated Network Error.  Failed to fetch sales report"));
             }
         }, 1000);
     });

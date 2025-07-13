@@ -14,6 +14,41 @@ Where API calls are concerned, retry is often going to be better than immediate 
 
 There's exceptions though; bad request or not found are issues that can't be fixed with retry, and servers may limit requests so simply retrying may actually be counterproductive.
 
+## Screenshots
+
+Note:  We were instructed to write fetchProductCatalog() and fetchProductReviews(productId: number).  Rather than importing data separately, I used the return on fetchProductCatalog to invoke fetchProductReviews.  In first screenshot, product reviews display after sales report.
+
+![Screenshot of all API calls successful:](./allSuccess.png);
+
+Below screenshot, simulated failure to fetch product catalog results in no product reviews being fetched (getchProductReviews is not even invoked).  This is intended.
+
+![Screenshot of API calls simulating all calls network failed:](./allFail.png);
+
+Below screenshot, simulated network failure of sales API call only, demonstrating success/failure of API calls is independent.
+
+![Screenshot of Sales API call simulated network failure](./salesFail.png);
+
+Below screneshot, simulated network failure of product 1 API call, demonstrating success/failure of API calls is independent for products.
+
+![Screenshot of Product 1 only API call simulated network failure](./product1.fail.png);
+
+Below screenshot of change to data to test simulated data error for API product catalog.  Note price data is not 'missing', but is set to 0.  This and the empty string, or any value evaluating to falsy, results in a data error.  This is intended.  I think Typescript will require some value be used, and changing code so 'void' or 'null' are allowed values would be odd.  If price of 0 (or other values evaluating to falsy) ought to be allowed, the code can be changed.
+
+![Screenshot of simulated data changed to include price 0](./productDataFail.png);
+
+Below screenshot of simulated data failure for product catalog request, using data rewritten as in above screenshot. 
+
+![Screenshot of simulated data failure for product catalog](./product1DataFail2.png);
+
+Below screenshot of change to data to test simulated data error for product review, this time using an empty string.
+
+![Screenshot of simulated data changed to include empty string](./pr1EmptyString.png);
+
+Below screenshot of simulated data failure for product review request, using data rewritten as in above screenshot.
+
+![Screenshot of simulated data failure for product reviews](./pr1DataError.png);
+
+
 ## Comments
 
 The same issue came up as with lab 1; including more details this time.
