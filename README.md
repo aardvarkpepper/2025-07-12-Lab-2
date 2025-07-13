@@ -2,17 +2,21 @@
 
 1.  Why is it important to handle errors for each individual API call rather than just at the end of the promise chain?
 
-Errors handling should give feedback as to what specifically caused the error.  Given that, it's simply easier to handle errors for each individual API call, giving feedback about that particular API failing, rather than handling errors at the end of the promise chain, by which time any number of errors may have caused failure.
+Error handling should give feedback as to what specifically caused the error.  Given that, it's simply easier to handle errors for each individual API call, giving feedback about that particular API failing.  Why handle errors at the end of the promise chain?  Trickier to write, trickier to maintain.
+
+Someone wrote a whole article about it.
+
+https://medium.com/@arthurxavier/error-handling-in-long-promise-chains-155f610b5bc6
 
 2.  How does using custom error classes improve debugging and error identification?
 
-Custom error classes can give specific details about what caused an error, making error identification and resolution quick.  Assuming the custom error class message was well written, one need only look at what specific part failed, and how that part connects to others, to trace the point of failure.
+Custom error classes can give specific details about what caused an error, making error identification and resolution quick.  Assuming the custom error class message was well written, one need only look at what specific part failed, and how that part connects to others, to trace the point of failure.  Less searching means faster fixing.
 
 3.  When might a retry mechanism be more effective than an immediate failure response?
 
-Where API calls are concerned, retry is often going to be better than immediate failure.  There's any number of reasons why an API request may not be immediately met; natural lag, extra lag from heavy system use.  No reason to shut things down because there's no immediate response.
+Where API calls are concerned, retry is often going to be better than immediate failure.  There's any number of reasons why an API request may not be immediately met; natural lag, extra lag from heavy system use.  No reason to shut things down because there's no immediate response.  (Often the API call may remain pending for a while, possibly 30 seconds to a minute or more, but eventually it typically will be rejected)
 
-There's exceptions though; bad request or not found are issues that can't be fixed with retry, and servers may limit requests so simply retrying may actually be counterproductive.
+There's exceptions though; bad request or not found are issues that can't be fixed with retry, and servers may limit requests so simply retrying may actually be counterproductive, using up a limited stock of daily API requests (or similar).
 
 ## Screenshots
 
@@ -118,3 +122,4 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
